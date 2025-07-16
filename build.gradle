@@ -1,0 +1,59 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JavaFX modules
+    implementation 'org.openjfx:javafx-controls:23'
+    implementation 'org.openjfx:javafx-fxml:23'
+    implementation 'org.openjfx:javafx-graphics:23'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1'
+
+    implementation 'org.openjfx:javafx-controls:20'
+    implementation 'org.openjfx:javafx-media:20'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.json:json:20230618'
+
+
+    //implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Testing framework
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
+}
+
+javafx {
+    // Specify the JavaFX version and modules to use
+    version = '23'
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media' ]
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'application.GameLauncher'
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += [
+        '--add-modules', 'javafx.controls,javafx.fxml',
+        '--add-exports', 'javafx.graphics/com.sun.javafx.application=ALL-UNNAMED'
+    ]
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+
+
